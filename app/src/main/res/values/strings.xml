@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Math Example</string>
+    <string name="app_name">Math Recognition Example</string>
     <string name="recognize">Recognize</string>
     <string name="clear">Clear</string>
     <string name="writeHere">Write here.</string>
