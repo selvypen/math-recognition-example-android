@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
     private WritingRecognizer mWritingRecognizer;
     private WritingView mWritingView;
     private WebView mWebView;
+    private TextView mVersion;
     private TextView mCandidates;
     private final String MATHJAX_HUB_QUEUE_URL = "javascript:MathJax.Hub.Queue(['Typeset',MathJax.Hub]);";
     private final String MATHJAX_MATH_URL_PREFIX = "javascript:document.getElementById('math').innerHTML=";
@@ -70,6 +71,8 @@ public class MainActivity extends Activity {
             });
         }
 
+        mVersion = (TextView) findViewById(R.id.version);
+        mVersion.setText(mWritingRecognizer.getVersion());
         mCandidates = (TextView) findViewById(R.id.candidates);
         mWebView = (WebView) findViewById(R.id.webview);
         mWebView.getSettings().setJavaScriptEnabled(true);
