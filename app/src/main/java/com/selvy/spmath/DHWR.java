@@ -1,10 +1,10 @@
 /*!
- *  @mainpage SelvyPen Math APIs Document
+ *  @mainpage Selvy Pen SDK for Math APIs Document
  *
  *  @section intro_sec Introduction
- *  본 문서는 SELVAS AI의 수식인식 솔루션인 SelvyPen Math HWR(HandWriting Recognition)의 API 가이드이다. \n
- *  SelvyPen Math HWR(DHWR)은 손으로 필기한 글씨를 인식하여 Digital Text로 변경해 주는 솔루션이다. \n
- *  표준 C언어 기반의 라이브러리로 Android, iOS, Tizen, Windows, Linux 등의 플랫폼을 지원하며, 
+ *  본 문서는 SELVAS AI의 수식인식 솔루션인 Selvy Pen SDK for Math의 API 가이드이다. \n
+ *  Selvy Pen SDK for Math는 손글씨로 수식을 입력하면 손글씨를 LaTeX으로 변환해 주는 솔루션이다. \n
+ *  표준 C언어 기반의 라이브러리로 Android, iOS, Tizen, Windows, Linux 등의 플랫폼을 지원하며,
  *  그 외 플랫폼 및 Non-OS는 커스터마이징을 통해 지원이 가능하다.
  *
  *  @section install_sec Setting
@@ -31,11 +31,12 @@
  *  그 외 플랫폼이나 다른 언어로 개발할 경우, 파일명이나 확장자는 다를 수 있다.
  *    - DHWR.java : 필기 인식에 사용되는 API가 정의되어 있다.
  *    - libspmath.so, libspmath-base.so, libspmath-core.so : 수식인식 엔진 Main 라이브러리
- *    - xxxx.hdb : 각 언어의 인식을 위한 리소스 파일, 파일의 path를 SetExternalResourcePath()의 파라미터로 설정해야 한다.
- *    - dhwr.key : License를 위한 key 파일로써, key파일이 없으면 수식인식 엔진은 동작하지 않는다. 파일명을 포함한 path를 Create()의 파라미터로 설정해야 한다
+ *    - xxxx.hdb : 인식 엔진에서 사용하는 DB파일로써, 파일의 path를 SetExternalResourcePath()의 파라미터로 설정해야 한다.
+ *    - license.key : License를 위한 key 파일로써, key파일이 없으면 수식인식 엔진은 동작하지 않는다. 파일명을 포함한 path를 Create()의 파라미터로 설정해야 한다
  *
  *  @section link_sec Link
- *  SELVAS AI http://www.selvasai.com/
+ *  SELVAS AI http://www.selvasai.com/ \n
+ *  Selvy Pen SDK Developers http://handwriting.selvasai.com/math
  */
 
 /*!
@@ -46,10 +47,10 @@
  *  Copyright (c) 2018 by SELVAS AI Inc. All rights reserved.
  */
 
-/*! 
+/*!
  *  @example example.java
- *  DHWR API를 이용하여 Android에서 수식인식을 사용하는 예제\n
- *  손글씨로 필기한 알파벳 'a'와 한글 '안녕하세요'의 좌표 값을 입력으로 받아 문자로 인식한 후 그 결과를 로그로 출력하도록 구현한 소스이다.
+ *  Selvy Pen SDK for Math의 API를 이용하여 Android에서 수식인식을 사용하는 예제\n
+ *  손글씨로 필기한 수식의 좌표 값을 입력으로 받아 LaTeX으로 인식한 후 그 결과를 로그로 출력하도록 구현한 소스이다.
  */
 
 package com.selvy.spmath;
@@ -68,19 +69,19 @@ public class DHWR {
     public final static String TAG = "SELVASAI";
     public final static String VERSION = "";
 
-	public final static int MAX_CANDIDATES = 10;
+    public final static int MAX_CANDIDATES = 10;
 
     /**
      * @defgroup  PublicStaticAttributes Public Static Attributes
      * @brief     API 사용 시 파리미터나 리턴값으로 사용 가능한 상수값들이 정의되어 있다.
-     * @details     @ref ErrorCode "Error Code"는 API에서 리턴 가능한 값들이 정의되어 있다. 
-     * @ref LanguageMode "Language Mode", @ref LanguageType "Language Type", @ref RecognitionMode "Recognition Mode"는 인식할 대상 언어와 인식 방식을 설정할 수 있는 값들이 정의되어 있다.
+     * @details     @ref ErrorCode "Error Code"는 API에서 리턴 가능한 값들이 정의되어 있다.
+     * @ref LanguageMode "Language Mode", @ref LanguageType "Language Type", @ref RecognitionMode "Recognition Mode"는 인식할 대상 언어(수식)와 인식 방식을 설정할 수 있는 값들이 정의되어 있다.
      */
 
     /*@{*/
     /*@}*/
 
-    //--------- Error Code ---------//    
+    //--------- Error Code ---------//
     /**
      * @defgroup  ErrorCode Error Code
      * @ingroup   PublicStaticAttributes
@@ -121,8 +122,8 @@ public class DHWR {
     /**
      * @defgroup  LanguageMode Language Mode
      * @ingroup   PublicStaticAttributes
-     * @brief     수식인식이 가능한 언어 목록이 정의되어 있다.
-     * @details     AddLanguage()를 호출함으로써, 인식할 언어를 추가할 수 있다. 한번에 하나의 언어만 인식이 가능하다.
+     * @brief     수식인식이 가능한 언어(수식) 목록이 정의되어 있다.
+     * @details     AddLanguage()를 호출함으로써, 인식할 언어(수식)를 추가할 수 있다. 한번에 하나의 언어(수식)만 인식이 가능하다.
      */
 
     /*@{*/
@@ -141,30 +142,25 @@ public class DHWR {
     /**
      * @defgroup  LanguageType Language Type
      * @ingroup   PublicStaticAttributes
-     * @brief     인식할 언어의 상세 설정을 위해서 사용할 값이 정의되어 있다.
-     * @details     예를 들어, @ref LanguageMode "Language Mode"가 영어(#DLANG_ENGLISH)일 경우, 대문자만 인식하거나, 소문자만 인식하거나, 또는 숫자만 인식하게 하는 등의 설정이 가능하다.\n
+     * @brief     인식할 언어(수식)의 상세 설정을 위해서 사용할 값이 정의되어 있다.
      * - Example usage:
      * @code
      * // 초등수학만 인식
      * DHWR.AddLanguage(mSetting.GetHandle(), DHWR.DLANG_MATH_ELEMENTARY, DHWR.DTYPE_NONE);
      * @endcode
-     * - @ref LanguageType "Language Type"을 기호(#DTYPE_SIGN)로 설정할 경우, 인식 가능한 기호 목록은 다음과 같다.
-     |Hex Code|Character|
-     |------------|-----------|
-     |0021 ~ 002F|! " # $ % & ' ( ) * + , - . /|
-     |003A ~ 0040|: ; < = > ? @|
-     |005B ~ 0060|[ \\ ] ^ _ `|
-     |007B ~ 007E|{ \| } ~|
      */
 
     /*@{*/
     //! 타입 없음
-
-    public final static int DTYPE_NONE        = 0;
-    public final static int DTYPE_MATH_ET     = (1 << 22);
-    public final static int DTYPE_MATH_MD     = (1 << 23);
-    public final static int DTYPE_MATH_EX     = (1 << 24);
-    public final static int DTYPE_MATH_CF     = (1 << 25);
+    public final static int DTYPE_NONE = 0;
+    //! 초등수학
+    public final static int DTYPE_MATH_ET = (1 << 22);
+    //! 중등수학
+    public final static int DTYPE_MATH_MD = (1 << 23);
+    //! 중등수학 확장
+    public final static int DTYPE_MATH_EX = (1 << 24);
+    //! 화학식
+    public final static int DTYPE_MATH_CF = (1 << 25);
     /*@}*/
 
     // --------- Param type ---------//
@@ -487,10 +483,10 @@ public class DHWR {
      * @defgroup SettingObject SettingObject APIs
      * @ingroup  Main
      * @brief    엔진 동작을 결정하는 SettingObject관련 함수
-     * @details     인식할 언어, 인식모드 등을 설정할 수 있는 API를 제공한다. SettingObject APIs는 일반적으로 다음과 같은 순서로 호출하게 된다.
+     * @details     인식할 언어(수식), 인식모드 등을 설정할 수 있는 API를 제공한다. SettingObject APIs는 일반적으로 다음과 같은 순서로 호출하게 된다.
      * -# 설정 오브젝트 생성 : CreateSettingObject()
      * -# 인식모드 설정 (낱자 인식/여러 글자 인식/여러 줄 인식) : SetRecognitionMode()
-     * -# 인식할 언어 설정 : AddLanguage()
+     * -# 인식할 언어(수식) 설정 : AddLanguage()
      * -# 최대 후보문자 개수 설정 : SetCandidateSize()
      * -# 설정 오브젝트를 인식에 사용하도록 설정 : SetAttribute()
      * -# 문자 인식 : Recognize()
@@ -538,23 +534,23 @@ public class DHWR {
     public final static native int SetCandidateSize(long setting, int sizeCand);
 
     /*!
-     *  @brief 인식할 언어를 추가 한다
+     *  @brief 인식할 언어(수식)를 추가 한다
      *  @param [in] setting 설정 오브젝트의 handle
-     *  @param [in] lang 언어 값 (@ref LanguageMode "Language Mode")
-     *  @param [in] option 언어에 따른 옵션 (@ref LanguageType "Language Type")
+     *  @param [in] lang 언어(수식) 값 (@ref LanguageMode "Language Mode")
+     *  @param [in] option 언어(수식)에 따른 옵션 (@ref LanguageType "Language Type")
      *  @return @ref ErrorCode "Error Code"
      */
     public final static native int AddLanguage(long setting, int lang, int option);
 
     /*!
-     *  @brief 설정된 언어 크기를 가져온다
+     *  @brief 설정된 언어(수식) 크기를 가져온다
      *  @param [in] setting 설정 오브젝트의 handle
-     *  @return 언어 크기
+     *  @return 언어(수식) 크기
      */
     public final static native int GetLanguageSize(long setting);
 
     /*!
-     *  @brief 설정된 언어를 초기화 한다
+     *  @brief 설정된 언어(수식)를 초기화 한다
      *  @param [in] setting 설정 오브젝트의 handle
      *  @return @ref ErrorCode "Error Code"
      */
@@ -693,12 +689,6 @@ public class DHWR {
      */
 
     /*@{*/
-    /*!
-     *  @brief 사용 가능한 언어 목록을 반환한다
-     *  @return 언어 목록 문자열
-     */
-    public final static native String AvailableLanguageList();
-
     /*!
      *  @brief 엔진내부에서 사용하는 외부라이브러리의 경로 설정
      *  @warning Create()를 실행한 이후에 호출해야 한다
