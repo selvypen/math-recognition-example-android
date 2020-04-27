@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">수식인식 예제</string>
-    <string name="recognize">수식인식</string>
+    <string name="recognize">인식하기</string>
     <string name="clear">지우기</string>
-    <string name="writeHere">여기에 수식을 필기하세요.</string>
+    <string name="writeHere">여기에 필기하세요.</string>
+    <string name="mathematical">수식</string>
+    <string name="chemical">화학식</string>
 </resources>

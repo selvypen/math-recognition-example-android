@@ -3,4 +3,6 @@
     <string name="recognize">Recognize</string>
     <string name="clear">Clear</string>
     <string name="writeHere">Write here.</string>
+    <string name="mathematical">mathematical</string>
+    <string name="chemical">chemical</string>
 </resources>

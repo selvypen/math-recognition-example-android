@@ -14,7 +14,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.selvy.spmath.DHWR;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -67,6 +70,16 @@ public class MainActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     handleRecognize();
+                }
+            });
+        }
+
+        RadioGroup languageGroup = (RadioGroup) findViewById(R.id.languageGroup);
+        if (languageGroup != null) {
+            languageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                    handleLanguageChanged(id);
                 }
             });
         }
@@ -147,6 +160,22 @@ public class MainActivity extends Activity {
         loadUrl(MATHJAX_MATH_URL_PREFIX + "'\\\\[" + doubleEscapeTeX(candidates[0]) + "\\\\]';");
         loadUrl(MATHJAX_HUB_QUEUE_URL);
      }
+
+    private void handleLanguageChanged(int id) {
+        int language = DHWR.DLANG_MATH_MIDDLE_EXPANSION;
+        int option = DHWR.DTYPE_MATH_MD;
+        switch (id) {
+            case R.id.mathematical:
+                language = DHWR.DLANG_MATH_MIDDLE_EXPANSION;
+                option = DHWR.DTYPE_MATH_MD;
+                break;
+            case R.id.chemical:
+                language = DHWR.DLANG_MATH_CHEMICAL;
+                option = DHWR.DTYPE_MATH_CF;
+                break;
+        }
+        mWritingRecognizer.setLanguage(language, option);
+    }
 
      private void loadUrl(String url) {
          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
