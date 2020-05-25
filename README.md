@@ -22,8 +22,12 @@ The **Selvy Pen SDK for Math** API documentation is available on [Selvy Pen SDK 
 ![](/screenshot-1.png)
 * Write mathematical expression
 ![](/screenshot-2.png)
-* Result
+* Recognition result
 ![](/screenshot-3.png)
+* Write chemical formula
+![](/screenshot-4.png)
+* Recognition result
+![](/screenshot-5.png)
 
 ## License
 © 2020. [SELVAS AI Inc.](http://www.selvasai.com) All Rights Reserved.
