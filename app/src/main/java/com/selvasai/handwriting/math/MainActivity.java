@@ -163,11 +163,11 @@ public class MainActivity extends Activity {
 
     private void handleLanguageChanged(int id) {
         int language = DHWR.DLANG_MATH_MIDDLE_EXPANSION;
-        int option = DHWR.DTYPE_MATH_MD;
+        int option = DHWR.DTYPE_MATH_EX;
         switch (id) {
             case R.id.mathematical:
                 language = DHWR.DLANG_MATH_MIDDLE_EXPANSION;
-                option = DHWR.DTYPE_MATH_MD;
+                option = DHWR.DTYPE_MATH_EX;
                 break;
             case R.id.chemical:
                 language = DHWR.DLANG_MATH_CHEMICAL;

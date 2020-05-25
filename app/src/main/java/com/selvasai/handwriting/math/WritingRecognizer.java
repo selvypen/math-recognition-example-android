@@ -40,7 +40,7 @@ public class WritingRecognizer {
         DHWR.SetRecognitionMode(mSetting.GetHandle(), DHWR.MULTICHAR);
         DHWR.SetCandidateSize(mSetting.GetHandle(), MAX_CANDIDATES);
         DHWR.ClearLanguage(mSetting.GetHandle());
-        DHWR.AddLanguage(mSetting.GetHandle(), DHWR.DLANG_MATH_MIDDLE_EXPANSION, DHWR.DTYPE_MATH_MD);
+        DHWR.AddLanguage(mSetting.GetHandle(), DHWR.DLANG_MATH_MIDDLE_EXPANSION, DHWR.DTYPE_MATH_EX);
         DHWR.SetAttribute(mSetting.GetHandle());
 
         return status;
